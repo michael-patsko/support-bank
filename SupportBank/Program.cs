@@ -8,13 +8,14 @@ namespace SupportBank
         public static void Main(string[] args)
         {
             Transaction transaction = new Transaction();
-            using (var reader = new StreamReader(@"C:\Training\support-bank\Transactions2014.csv"))
+            using (var reader = new StreamReader(@"..\Transactions2014.csv"))
             {
                 List<string> listA = new List<string>();
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(';');
+                    var columns = values[0].Split(',');
 
                     listA.Add(values[0]);
                 }

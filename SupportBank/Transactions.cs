@@ -4,6 +4,6 @@ namespace SupportBank
 {
     public class Transaction
     {
-        public List<string> transaction = new List<string>();
+        public Dictionary<string ,string> transaction = new Dictionary<string, string>();
     }
 }
