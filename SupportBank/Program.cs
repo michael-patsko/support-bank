@@ -10,16 +10,24 @@ namespace SupportBank
             Transaction transaction = new Transaction();
             using (var reader = new StreamReader(@"..\Transactions2014.csv"))
             {
-                List<string> listA = new List<string>();
+                List<string> dates = new List<string>();
+                List<string> from = new List<string>();
+                List<string> to = new List<string>();
+                List<string> amount = new List<string>();
+                List<string> description = new List<string>();
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(';');
                     var columns = values[0].Split(',');
-
-                    listA.Add(values[0]);
+                    dates.Add(columns[0]);
+                    from.Add(columns[1]);
+                    to.Add(columns[2]);
+                    amount.Add(columns[3]);
+                    description.Add(columns[4]);
                 }
-                listA.ForEach(item => Console.Write($"{item}\n"));
+                // Console.WriteLine(dates);
+                from.ForEach(item => Console.WriteLine(item));
             }
         }
     }
