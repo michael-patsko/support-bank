@@ -26,8 +26,18 @@ namespace SupportBank
                     amount.Add(columns[3]);
                     description.Add(columns[4]);
                 }
-                // Console.WriteLine(dates);
-                from.ForEach(item => Console.WriteLine(item));
+                List<Account1> accountList = new List<Account1>();
+                from.ForEach(name =>
+                {
+                    Account1 account = new Account1(name);
+                    accountList.Add(account);
+                });
+                to.ForEach(name =>
+                {
+                    Account1 account = new Account1(name);
+                    accountList.Add(account);
+                });
+                accountList.ForEach(account => Console.WriteLine(account.Name));
             }
         }
     }
