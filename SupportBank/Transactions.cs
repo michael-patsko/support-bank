@@ -2,8 +2,8 @@ using System;
 
 namespace SupportBank
 {
-    public class Transaction
+    public class Transactions
     {
-        public Dictionary<string ,string> transaction = new Dictionary<string, string>();
+        public Dictionary<Payment, string> transactions = new Dictionary<Payment, string>();
     }
 }
