@@ -4,15 +4,10 @@ namespace SupportBank
 {
     public class DataReader
     {
-        public static Transactions ReadData()
+        public static Bank ReadData()
         {
             using (var sr = new StreamReader(@"..\Transactions2014.csv"))
             {
-                List<DateTime> dates = new List<DateTime>();
-                List<Account> from = new List<Account>();
-                List<Account> to = new List<Account>();
-                List<decimal> amount = new List<decimal>();
-                List<string> description = new List<string>();
                 Bank bank = new Bank();
 
                 sr.ReadLine();
@@ -22,32 +17,42 @@ namespace SupportBank
                     var line = sr.ReadLine();
                     var values = line.Split(';');
                     var columns = values[0].Split(',');
-                    dates.Add(DateTime.Parse(columns[0]));
-                     Account fromAccount = new Account(columns[1]);
-                     //from.Add(fromAccount);
 
-                     Account toAccount = new Account(columns[2]);
-                     //to.Add(toAccount);
-                    bank.foreach (var item in collection)
+                    Account fromAccount = new Account(columns[1]);
+                    Account toAccount = new Account(columns[2]);
+                    Payment newPayment = new Payment(fromAccount, toAccount, DateTime.Parse(columns[0]), decimal.Parse(columns[4]));
+                    string newDescription = columns[3];
+
+                    bool fromAccountExists = false;
+                    bool toAccountExists = false;
+                    foreach (Account bankAccount in bank.UserAccounts)
                     {
 
+                        if (fromAccount == bankAccount)
+                        {
+                            bankAccount.Transactions.transactions.Add(newPayment, newDescription);
+                            fromAccountExists = true;
+                        }
+
+                        if (toAccount == bankAccount)
+                        {
+                            bankAccount.Transactions.transactions.Add(newPayment, newDescription);
+                            toAccountExists = true;
+                        }
                     }
-
-                    
-
-                    description.Add(columns[3]);
-                    amount.Add(decimal.Parse(columns[4]));
+                    if (!fromAccountExists)
+                    {
+                        fromAccount.Transactions.transactions.Add(newPayment, newDescription);
+                        bank.UserAccounts.Add(fromAccount);
+                    }
+                    if (!toAccountExists)
+                    {
+                        toAccount.Transactions.transactions.Add(newPayment, newDescription);
+                        bank.UserAccounts.Add(toAccount);
+                    }
                 }
 
-                int length = from.Count();
-                Transactions transactions = new Transactions();
-
-                for (int i = 0; i < length; i++)
-                {
-                    Payment payment = new Payment(from[i], to[i], dates[i], amount[i]);
-                    transactions.transactions.Add(payment, description[i]);
-                }
-                return transactions;
+                return bank;
             }
         }
     }

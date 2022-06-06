@@ -7,14 +7,23 @@ namespace SupportBank
     {
         public static void Main(string[] args)
         {
-            Transactions transactionsList = DataReader.ReadData();
-            foreach (var payment in transactionsList.transactions.Keys)
+            Bank bank = DataReader.ReadData();
+
+            Console.WriteLine("Please select a service: \n" +
+            "(1) List All");
+            string input = Console.ReadLine();
+
+            if (input == "List All" || input == "1")
             {
-                Console.WriteLine(payment);
+                decimal TotalBalance = 0M;
+                foreach (Account account in bank.UserAccounts)
+                {
+                    Console.WriteLine(account);
+                    TotalBalance += account.MoneyIn;
+                    TotalBalance -= account.MoneyOut;
+                }
+                Console.WriteLine($"Total Balance: £{TotalBalance}");
             }
-            Account account1 = new Account("Name");
-            Account account2 = new Account("Name");
-            Console.WriteLine(account1.Equals(account2));
         }
     }
 }
