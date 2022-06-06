@@ -12,6 +12,9 @@ namespace SupportBank
             {
                 Console.WriteLine(payment);
             }
+            Account account1 = new Account("Name");
+            Account account2 = new Account("Name");
+            Console.WriteLine(account1.Equals(account2));
         }
     }
 }

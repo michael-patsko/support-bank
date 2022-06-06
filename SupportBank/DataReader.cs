@@ -13,6 +13,7 @@ namespace SupportBank
                 List<Account> to = new List<Account>();
                 List<decimal> amount = new List<decimal>();
                 List<string> description = new List<string>();
+                Bank bank = new Bank();
 
                 sr.ReadLine();
 
@@ -22,12 +23,17 @@ namespace SupportBank
                     var values = line.Split(';');
                     var columns = values[0].Split(',');
                     dates.Add(DateTime.Parse(columns[0]));
+                     Account fromAccount = new Account(columns[1]);
+                     //from.Add(fromAccount);
 
-                    Account fromAccount = new Account(columns[1]);
-                    from.Add(fromAccount);
+                     Account toAccount = new Account(columns[2]);
+                     //to.Add(toAccount);
+                    bank.foreach (var item in collection)
+                    {
 
-                    Account toAccount = new Account(columns[2]);
-                    to.Add(toAccount);
+                    }
+
+                    
 
                     description.Add(columns[3]);
                     amount.Add(decimal.Parse(columns[4]));
