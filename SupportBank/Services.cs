@@ -11,7 +11,6 @@ namespace SupportBank
             "(1) List All \n" +
             "(2) List[Account]");
             string input = Console.ReadLine();
-            //string accountName = input.Substring(4, input.Length - 6);
             string inputPattern = @"List\[.+\]";
             Regex inputRegex = new Regex(inputPattern);
             Match inputMatch = inputRegex.Match(input);
