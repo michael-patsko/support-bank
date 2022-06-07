@@ -1,4 +1,4 @@
-using System;
+using System.Text.RegularExpressions;
 namespace SupportBank
 {
     public class Services
@@ -12,6 +12,13 @@ namespace SupportBank
             "(2) List[Account]");
             string input = Console.ReadLine();
             //string accountName = input.Substring(4, input.Length - 6);
+            string inputPattern = @"List\[.+\]";
+            Regex inputRegex = new Regex(inputPattern);
+            Match inputMatch = inputRegex.Match(input);
+
+            string namePattern = @"(?<=\[).+(?=\])";
+            Regex nameRegex = new Regex(namePattern);
+            Match nameMatch = nameRegex.Match(input);
 
             if (input == "List All" || input == "1")
             {
@@ -21,6 +28,11 @@ namespace SupportBank
             {
                 Console.WriteLine("Please enter account name:");
                 string accountName = Console.ReadLine();
+                ListAccount(accountName, bank);
+            }
+            if (inputMatch.Success)
+            {
+                string accountName = nameMatch.Value;
                 ListAccount(accountName, bank);
             }
         }
