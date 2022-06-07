@@ -16,7 +16,7 @@ namespace SupportBank
         }
         public override string ToString()
         {
-            return $"From: {From} To: {To} Date: {DateTime} Amount: {Amount}";
+            return $"From: {From.Name} To: {To.Name} Date: {DateTime} Amount: £{Amount}";
         }
     }
 }
